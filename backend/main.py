@@ -1,0 +1,21 @@
+
+from fastapi import FastAPI
+
+app = FastAPI(
+    title="AI Business Analytics & Decision Support Agent",
+    description="An AI-powered platform for business analytics and decision support.",
+    version="1.0.0"
+)
+
+@app.get("/")
+def home():
+    return {
+        "message": "AI Business Analytics Agent API is running",
+        "status": "success"
+    }
+
+@app.get("/health")
+def health_check():
+    return {
+        "status": "healthy"
+    }
