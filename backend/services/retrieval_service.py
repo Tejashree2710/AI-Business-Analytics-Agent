@@ -4,7 +4,17 @@ from backend.models import DocumentChunk
 from backend.services.embedding_service import generate_embedding
 
 
-def search_similar_chunks(query: str, top_k: int = 5):
+def search_similar_chunks(
+    query: str,
+    session_id: int,
+    top_k: int = 5
+):
+    if not query or not query.strip():
+        raise ValueError("Search query cannot be empty")
+
+    if not session_id:
+        raise ValueError("Session ID is required")
+
     db = SessionLocal()
 
     try:
@@ -12,6 +22,7 @@ def search_similar_chunks(query: str, top_k: int = 5):
 
         results = (
             db.query(DocumentChunk)
+            .filter(DocumentChunk.session_id == session_id)
             .order_by(
                 DocumentChunk.embedding.cosine_distance(query_embedding)
             )

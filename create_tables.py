@@ -1,7 +1,13 @@
 
 from backend.database import Base, engine
-from backend.models import DocumentChunk
+from backend.models import (
+    User,
+    ChatSession,
+    UploadedFile,
+    DocumentChunk,
+    ChatMessage
+)
 
 Base.metadata.create_all(bind=engine)
 
-print("Database tables created successfully!")
+print("Database tables checked successfully!")
